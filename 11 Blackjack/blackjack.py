@@ -48,8 +48,3 @@ while flag:
         elif user_cards_sum > dealer_cards_sum:
             print(f"Dealer cards: {dealer_cards}. Dealer wins!")
         flag = False
-
-
-
-
-
