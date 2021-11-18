@@ -10,11 +10,11 @@ while True:
     coffee_type = input(f"What would you like ({items[0:-1]}): ").lower()
     if coffee_type == 'off':
         break
-    item = menu.find_drink(coffee_type)
-    if coffee_type == 'report':
+    elif coffee_type == 'report':
         coffee_maker.report()
         money_machine.report()
     else:
+        item = menu.find_drink(coffee_type)
         resources_available = coffee_maker.is_resource_sufficient(item)
         payment_successful = money_machine.make_payment(item.cost)
         if resources_available and payment_successful:
