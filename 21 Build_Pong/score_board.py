@@ -35,4 +35,4 @@ class ScoreBoard(Turtle):
         if self.score_r >= 10 or self.score_l >= 10:
             self.is_game_on = False
             self.goto(0, 0)
-            self.write("GAME OVER!", align='enter', font=('Ariel', 50, 'normal'))
+            self.write("GAME OVER!", align='center', font=('Ariel', 50, 'normal'))
