@@ -1,7 +1,7 @@
 from turtle import Turtle
 
 ALIGNMENT = "center"
-FONT = ("Courier", 40, "normal")
+
 SCORE_POSITIONS = [(-75, 225), (50, 225)]
 
 
