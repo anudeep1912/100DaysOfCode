@@ -7,24 +7,20 @@ LETTERS_LOWER = [letter for letter in string.ascii_lowercase]
 LETTERS_UPPER = [letter for letter in string.ascii_uppercase]
 NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 SYMBOLS = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
-NUM_LOWER_LETTERS = 6
-NUM_UPPER_LETTERS = 2
-NUM_SYMBOLS = 2
-NUM_NUMBERS = 2
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 
 def generate_password():
-    password = ""
-    for i in range(NUM_LOWER_LETTERS):
-        password += random.choice(LETTERS_LOWER)
-    for i in range(NUM_UPPER_LETTERS):
-        password += random.choice(LETTERS_UPPER)
-    for i in range(NUM_NUMBERS):
-        password += random.choice(NUMBERS)
-    for i in range(NUM_SYMBOLS):
-        password += random.choice(SYMBOLS)
-    random_generated_password = ''.join(random.sample(password, len(password)))
+    password_entry.delete(0, END)
+
+    password_letters_lower = [random.choice(LETTERS_LOWER) for _ in range(random.randint(6, 8))]
+    password_letters_upper = [random.choice(LETTERS_UPPER) for _ in range(random.randint(1, 2))]
+    password_symbols = [random.choice(SYMBOLS) for _ in range(random.randint(1, 2))]
+    password_numbers = [random.choice(NUMBERS) for _ in range(random.randint(1, 2))]
+
+    password_list = password_letters_lower + password_letters_upper + password_symbols + password_numbers
+    random.shuffle(password_list)
+    random_generated_password = ''.join(password_list)
     password_entry.insert(END, string=random_generated_password)
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -96,9 +92,6 @@ generate_button.grid(row=4, column=3)
 # add button to add data to file
 add_button = Button(text="Add", command=save_password, width=46)
 add_button.grid(row=5, column=2, columnspan=2, sticky="w")
-
-
-
 
 
 window.mainloop()
