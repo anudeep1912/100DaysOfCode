@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import string
+import json
 
 LETTERS_LOWER = [letter for letter in string.ascii_lowercase]
 LETTERS_UPPER = [letter for letter in string.ascii_uppercase]
@@ -27,8 +28,16 @@ def generate_password():
 
 def save_password():
     password_entered = password_entry.get()
-    website_entered = website_entry.get()
+    website_entered = website_entry.get().capitalize()
     name_entered = name_entry.get()
+
+    new_data = {
+        website_entered: {
+            "username": name_entered,
+            "password": password_entered
+        }
+    }
+
 
     if len(website_entered) == 0 or len(password_entered) == 0:
         messagebox.showinfo("Oops", "Please don't leave any fields empty!")
@@ -37,11 +46,26 @@ def save_password():
                                    f"Email: {name_entered}\nPassword: {password_entered}\n"
                                    "Is it ok to save?")
     if is_ok:
-        password_file = open("password_data.txt", "a")
-        password_file.write(f"{website_entered:25} | {name_entered:30} | {password_entered:20}\n")
-        password_file.close()
+        with open("password_data.json", "r") as data_file:
+            data = json.load(data_file)
+            data.update(new_data)
+        with open("password_data.json", "w") as data_file:
+            json.dump(data, data_file, indent=4)
         password_entry.delete(0, END)
         website_entry.delete(0, END)
+
+
+def search():
+    website_entered = website_entry.get().capitalize()
+    with open("password_data.json", "r") as data_file:
+        data = json.load(data_file)
+    try:
+        username = data[website_entered]["username"]
+        password = data[website_entered]["password"]
+        messagebox.showinfo(f"{website_entered}", f"Email: {username}\nPassword: {password}\n")
+    except KeyError:
+        messagebox.showerror(f"No data found!", f"The details for {website_entered} not found.")
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 
@@ -61,10 +85,14 @@ website_label.grid(row=2, column=1)
 website_label.config(padx=40, pady=10)
 
 # website entry
-website_entry = Entry(width=55)
+website_entry = Entry(width=30)
 website_entry.insert(END, string="")
-website_entry.grid(row=2, column=2, columnspan=2, sticky="w")
+website_entry.grid(row=2, column=2, sticky="w")
 website_entry.focus()
+
+generate_button = Button(text="Search", command=search, width=15, height=1)
+generate_button.grid(row=2, column=3)
+
 # name label
 name_label = Label(text="Username/Email", width=10)
 name_label.grid(row=3, column=1)
