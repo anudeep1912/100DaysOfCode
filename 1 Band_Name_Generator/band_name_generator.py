@@ -7,5 +7,5 @@ pet = input('What is the name of your pet?\n').capitalize()
 #4. Combine the name of their city and pet and show them their band name.
 result = city +" "+ pet
 #5. Make sure the input cursor shows on a new line, see the example at:
-#   https://band-name-generator-end.appbrewery.repl.run/
+#   https://band-name-generator-end.appbrewery.repl.run
 print("Your band name is " + result +". Rock ON!")
