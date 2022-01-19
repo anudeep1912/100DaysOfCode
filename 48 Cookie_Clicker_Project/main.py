@@ -69,5 +69,5 @@ while True:
         cps = driver.find_element(By.ID, "cps")
         print(cps.text)
         break
-        
+
 driver.quit()
