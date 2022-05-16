@@ -3,3 +3,4 @@ __pycache__
 .env
 /Development
 /Web Development
+.idea/
