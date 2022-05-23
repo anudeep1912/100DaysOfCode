@@ -14,6 +14,7 @@ for post in post_response:
 def home():
     return render_template("index.html", all_posts=posts_list)
 
+
 @app.route("/post/<int:index>")
 def show_post(index):
     requested_post = None
